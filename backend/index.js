@@ -1,5 +1,5 @@
 import express from "express";
-import shorturl from "shorturl";
+import urlRoute from "./routes/url";
 import { configDotenv } from "dotenv";
 
 configDotenv();
@@ -7,6 +7,7 @@ configDotenv();
 const app = express();
 
 const PORT = process.env.PORT;
+app.urlRoute("/url", urlRoute);
 
 app.listen(PORT, () => {
   console.log("App is running on port:", PORT);
