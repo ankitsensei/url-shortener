@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 
-const Hero = () => {
+const Faqs = () => {
   return (
     <div className="w-full h-full bg-[#E3DEFF]">
       <Navbar />
@@ -8,4 +8,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Faqs;
