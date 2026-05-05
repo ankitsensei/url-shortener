@@ -14,4 +14,14 @@ async function handleGenerateNewShortUrl(req, res) {
 
   return res.json({ id: shortId });
 }
-export { handleGenerateNewShortUrl };
+
+async function handleGetAnalytics(req, res) {
+  const shortId = req.params.shortId;
+  const result = await URL.findOne({ shortId });
+  return res.json({
+    totalClicks: result.visitedHistory.length,
+    analytics: result.visitedHistory,
+  });
+}
+
+export { handleGenerateNewShortUrl, handleGetAnalytics };
