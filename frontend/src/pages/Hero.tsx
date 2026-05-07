@@ -22,8 +22,9 @@ const Hero = () => {
           <div>
             <input
               type="text"
+              placeholder="https://ankitbhagat-portfolio.vercel.app/"
               {...register("newUrl", { required: true })}
-              className="border border-r-0 py-2 px-2 w-110 outline-none rounded-lg rounded-r-none"
+              className="border border-r-0 py-2 px-2 w-110 outline-none rounded-lg rounded-r-none placeholder:text-zinc-400"
             />
             {errors.newUrl && <span>This field is required</span>}
             <input
