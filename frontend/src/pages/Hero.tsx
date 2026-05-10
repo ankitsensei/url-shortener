@@ -1,10 +1,11 @@
 import Navbar from "../components/Navbar";
 import { useForm } from "react-hook-form";
-import type { SubmitHandler } from "react-hook-form";
+import axios from "axios";
 
 interface IFormInput {
   newUrl: string;
 }
+
 const Hero = () => {
   const {
     register,
@@ -12,7 +13,17 @@ const Hero = () => {
     formState: { errors },
   } = useForm<IFormInput>();
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const onSubmit = async (data: IFormInput) => {
+    try {
+      const response = await axios.post("http://localhost:5555/url", {
+        url: data.newUrl,
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="w-full h-screen bg-[#E3DEFF]">
       <Navbar />
