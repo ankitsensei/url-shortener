@@ -1,6 +1,8 @@
 import Navbar from "../components/Navbar";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { motion } from "motion/react";
+import { FaRegCopy } from "react-icons/fa";
 
 interface IFormInput {
   newUrl: string;
@@ -44,6 +46,16 @@ const Hero = () => {
             />
           </div>
         </form>
+        {/*TODO: Show link and copy button after submission of original link */}
+        <div className="mt-5 flex justify-between items-center w-133 h-full border px-2 py-2 rounded-md">
+          <input type="text" className="w-full outline-none" />
+          <motion.button
+            whileHover={{ scale: 1.2 }}
+            className="px-2 rounded-lg rounded-l-none text-md"
+          >
+            <FaRegCopy className="" />
+          </motion.button>
+        </div>
       </div>
     </div>
   );
