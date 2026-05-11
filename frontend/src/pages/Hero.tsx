@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -9,6 +10,7 @@ interface IFormInput {
 }
 
 const Hero = () => {
+  const [generatedNewUrl, setGeneratedNewUrl] = useState<string>();
   const {
     register,
     handleSubmit,
@@ -20,9 +22,20 @@ const Hero = () => {
       const response = await axios.post("http://localhost:5555/url", {
         url: data.newUrl,
       });
-      console.log(response.data);
+      setGeneratedNewUrl(response.data.id);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        `http://localhost:5555/${generatedNewUrl}`,
+      );
+      alert("Link Copied!");
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -47,15 +60,22 @@ const Hero = () => {
           </div>
         </form>
         {/*TODO: Show link and copy button after submission of original link */}
-        <div className="mt-5 flex justify-between items-center w-133 h-full border px-2 py-2 rounded-md">
-          <input type="text" className="w-full outline-none" />
-          <motion.button
-            whileHover={{ scale: 1.2 }}
-            className="px-2 rounded-lg rounded-l-none text-md"
-          >
-            <FaRegCopy className="" />
-          </motion.button>
-        </div>
+        {generatedNewUrl && (
+          <div className="mt-5 flex justify-between items-center w-133 h-full border px-2 py-2 rounded-md">
+            <input
+              type="text"
+              id="generatedUrl"
+              className="w-full outline-none"
+              value={`http://localhost:5555/${generatedNewUrl}`}
+            />
+            <motion.button
+              whileHover={{ scale: 1.2 }}
+              className="px-2 rounded-lg rounded-l-none text-md"
+            >
+              <FaRegCopy className="" onClick={handleCopy} />
+            </motion.button>
+          </div>
+        )}
       </div>
     </div>
   );
