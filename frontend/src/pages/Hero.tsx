@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { motion } from "motion/react";
+import toast, { Toaster } from "react-hot-toast";
 import { FaRegCopy } from "react-icons/fa";
 
 interface IFormInput {
@@ -33,14 +34,16 @@ const Hero = () => {
       await navigator.clipboard.writeText(
         `http://localhost:5555/${generatedNewUrl}`,
       );
-      alert("Link Copied!");
+      toast.success("Copied url");
     } catch (err) {
+      toast.error("Couldn't copy");
       console.log(err);
     }
   };
 
   return (
     <div className="w-full h-screen bg-[#E3DEFF]">
+      <Toaster position="top-center" reverseOrder={false} />
       <Navbar />
       <div className="flex flex-col justify-center items-center mt-20">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -48,7 +51,7 @@ const Hero = () => {
           <div>
             <input
               type="text"
-              placeholder="https://ankitbhagat-portfolio.vercel.app/"
+              placeholder="https://github.com/ankitsensei"
               {...register("newUrl", { required: true })}
               className="border border-r-0 py-2 px-2 w-110 outline-none rounded-lg rounded-r-none placeholder:text-zinc-400"
             />
