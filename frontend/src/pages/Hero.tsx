@@ -49,22 +49,20 @@ const Hero = () => {
       <div className="flex flex-col justify-center items-center mt-20">
         <div className="flex flex-col items-center gap-5">
           <div className="flex flex-col items-center">
-            <p className="font-bold text-5xl text-purple-950">Shorter Links.</p>
-            <p className="font-light text-6xl text-purple-900">
+            <p className="font-bold text-4xl md:text-5xl text-purple-950">Shorter Links.</p>
+            <p className="font-light text-4xl md:text-6xl text-purple-900">
               Deep Engagement
             </p>
           </div>
-          <p className="text-zinc-600 text-center">
-            Take full control. Create short, branded links and QR codes you can
-            edit
-            <br />
-            anytime to keep your campaigns fresh and effective.
+          <p className="text-zinc-600 text-center text-sm lg:text-md">
+            Take full control. Create short, branded links and QR codes you{" "}
+            <br /> can edit anytime to keep your campaigns fresh and effective.
           </p>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="mt-10">
           <label>Enter your URL</label>
           <div className="flex items-center">
-            <div className="border border-r-0 w-110 outline-none rounded-lg rounded-r-none placeholder:text-zinc-400 flex items-center px-2">
+            <div className="border border-r-0 w-80 lg:w-110 outline-none rounded-lg rounded-r-none placeholder:text-zinc-400 flex items-center px-2">
               <IoLinkSharp className="text-zinc-400 rotate-135 text-2xl" />
               <input
                 type="text"
