@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaRegCopy } from "react-icons/fa";
 import { IoLinkSharp } from "react-icons/io5";
+import Silk from "../component/Silk";
 
 interface IFormInput {
   newUrl: string;
@@ -43,58 +44,95 @@ const Hero = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-[#E3DEFF]">
-      <Toaster position="top-center" reverseOrder={false} />
-      <Navbar />
-      <div className="flex flex-col justify-center items-center mt-20">
-        <div className="flex flex-col items-center gap-5">
-          <div className="flex flex-col items-center">
-            <p className="font-bold text-4xl md:text-5xl text-purple-950">Shorter Links.</p>
-            <p className="font-light text-4xl md:text-6xl text-purple-900">
-              Deep Engagement
+    <div className="relative w-full min-h-screen overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 z-0">
+        <Silk
+          speed={5}
+          scale={1}
+          color="#ffffff"
+          noiseIntensity={1.5}
+          rotation={0}
+        />
+      </div>
+
+      <div className="relative z-10">
+        <Toaster position="top-center" reverseOrder={false} />
+
+        <Navbar />
+
+        <div className="flex flex-col justify-center items-center mt-20 px-4">
+          <div className="flex flex-col items-center gap-5">
+            <div className="flex flex-col items-center">
+              <p className="font-bold text-4xl md:text-5xl text-white">
+                Shorter Links.
+              </p>
+
+              <p className="font-light text-4xl md:text-6xl text-white text-center">
+                Deep Engagement
+              </p>
+            </div>
+
+            <p className="text-zinc-400 text-center text-sm lg:text-md">
+              Take full control. Create short, branded links and QR codes you
+              <br />
+              can edit anytime to keep your campaigns fresh and effective.
             </p>
           </div>
-          <p className="text-zinc-600 text-center text-sm lg:text-md">
-            Take full control. Create short, branded links and QR codes you{" "}
-            <br /> can edit anytime to keep your campaigns fresh and effective.
-          </p>
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-10">
-          <label>Enter your URL</label>
-          <div className="flex items-center">
-            <div className="border border-r-0 w-80 lg:w-110 outline-none rounded-lg rounded-r-none placeholder:text-zinc-400 flex items-center px-2">
-              <IoLinkSharp className="text-zinc-400 rotate-135 text-2xl" />
+
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="mt-10 flex flex-col gap-2"
+          >
+            <label className="text-white font-medium">Enter your URL</label>
+
+            <div className="flex items-center">
+              <div className="border border-r-0 border-white/30 backdrop-blur-md bg-white/40 w-80 lg:w-[440px] rounded-lg rounded-r-none flex items-center px-2">
+                <IoLinkSharp className="text-zinc-500 rotate-135 text-2xl" />
+
+                <input
+                  type="text"
+                  placeholder="https://github.com/ankitsensei"
+                  {...register("newUrl", { required: true })}
+                  className="py-3 px-2 w-full bg-transparent outline-none placeholder:text-zinc-500"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="px-5 py-3 bg-zinc-500 hover:bg-zinc-600 transition text-white border border-zinc-400 rounded-lg rounded-l-none"
+              >
+                Shorten
+              </button>
+            </div>
+
+            {errors.newUrl && (
+              <span className="text-red-500 text-sm">
+                This field is required
+              </span>
+            )}
+          </form>
+
+          {generatedNewUrl && (
+            <div className="mt-5 flex justify-between items-center w-80 lg:w-[540px] border border-white/30 bg-white/40 backdrop-blur-md px-3 py-3 rounded-md">
               <input
                 type="text"
-                placeholder="https://github.com/ankitsensei"
-                {...register("newUrl", { required: true })}
-                className=" py-2 px-2 w-110 outline-none placeholder:text-zinc-400 flex"
+                readOnly
+                className="w-full bg-transparent outline-none"
+                value={`http://localhost:5555/${generatedNewUrl}`}
               />
+
+              <motion.button
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleCopy}
+                className="px-2 text-lg"
+              >
+                <FaRegCopy />
+              </motion.button>
             </div>
-            <input
-              type="submit"
-              className="px-5 py-2 bg-purple-400 border rounded-lg rounded-l-none"
-            />
-          </div>
-          {errors.newUrl && <span>This field is required</span>}
-        </form>
-        {/*TODO: Show link and copy button after submission of original link */}
-        {generatedNewUrl && (
-          <div className="mt-5 flex justify-between items-center w-133 h-full border px-2 py-2 rounded-md">
-            <input
-              type="text"
-              id="generatedUrl"
-              className="w-full outline-none"
-              value={`http://localhost:5555/${generatedNewUrl}`}
-            />
-            <motion.button
-              whileHover={{ scale: 1.2 }}
-              className="px-2 rounded-lg rounded-l-none text-md"
-            >
-              <FaRegCopy className="" onClick={handleCopy} />
-            </motion.button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

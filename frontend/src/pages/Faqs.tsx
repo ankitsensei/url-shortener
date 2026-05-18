@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import Navbar from "../components/Navbar";
+import Silk from "../component/Silk";
 
 const faqData = [
   {
@@ -40,24 +41,26 @@ const faqData = [
 const FaqItem = ({ question, answer, isOpen, onClick }) => {
   return (
     <div className="bg-white/60 rounded shadow-md overflow-hidden transition-all duration-300">
-      <button
-        onClick={onClick}
-        className="w-full flex items-center justify-between px-6 py-2 text-left"
-      >
-        <h3 className="text-lg text-gray-800">{question}</h3>
+      <div className="relative z-10">
+        <button
+          onClick={onClick}
+          className="w-full flex items-center justify-between px-6 py-2 text-left"
+        >
+          <h3 className="text-lg text-gray-800">{question}</h3>
 
-        {isOpen ? (
-          <ChevronUp className="text-purple-700" size={22} />
-        ) : (
-          <ChevronDown className="text-purple-700" size={22} />
+          {isOpen ? (
+            <ChevronUp className="text-white" size={22} />
+          ) : (
+            <ChevronDown className="text-white" size={22} />
+          )}
+        </button>
+
+        {isOpen && (
+          <div className="px-6 pb-5">
+            <p className="text-gray-600 leading-relaxed">{answer}</p>
+          </div>
         )}
-      </button>
-
-      {isOpen && (
-        <div className="px-6 pb-5">
-          <p className="text-gray-600 leading-relaxed">{answer}</p>
-        </div>
-      )}
+      </div>
     </div>
   );
 };
@@ -70,43 +73,56 @@ const Faqs = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#E3DEFF]">
-      <Navbar />
+    <div className="h-full">
+      {/* Background */}
+      <div className="absolute inset-0 z-0">
+        <Silk
+          speed={5}
+          scale={1}
+          color="#ffffff"
+          noiseIntensity={1.5}
+          rotation={0}
+        />
+      </div>
 
-      <div className="max-w-4xl mx-auto px-5 py-14">
-        {/* Heading */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-900">
-            Frequently Asked Questions
-          </h1>
+      <div className="relative z-10">
+        <Navbar />
 
-          <p className="mt-4 text-lg text-gray-700">
-            Everything you need to know about our URL Shortener platform.
-          </p>
-        </div>
+        <div className="max-w-4xl mx-auto px-5 py-14">
+          {/* Heading */}
+          <div className="text-center mb-12">
+            <h1 className="text-5xl font-bold text-gray-900">
+              Frequently Asked Questions
+            </h1>
 
-        {/* FAQ Container */}
-        <div className="space-y-5">
-          {faqData.map((faq, index) => (
-            <FaqItem
-              key={index}
-              question={faq.question}
-              answer={faq.answer}
-              isOpen={openIndex === index}
-              onClick={() => toggleFaq(index)}
-            />
-          ))}
-        </div>
+            <p className="mt-4 text-lg text-gray-700">
+              Everything you need to know about our URL Shortener platform.
+            </p>
+          </div>
 
-        {/* Bottom Section */}
-        <div className="mt-14 text-center bg-white/60 rounded-lg shadow-lg p-8">
-          <h2 className="text-2xl font-bold text-gray-900">
-            Still have questions?
-          </h2>
+          {/* FAQ Container */}
+          <div className="space-y-5">
+            {faqData.map((faq, index) => (
+              <FaqItem
+                key={index}
+                question={faq.question}
+                answer={faq.answer}
+                isOpen={openIndex === index}
+                onClick={() => toggleFaq(index)}
+              />
+            ))}
+          </div>
 
-          <button className="mt-6 px-6 py-3 bg-purple-700 hover:bg-purple-800 text-white rounded-lg font-medium transition-all duration-300">
-            You're stupid, don't contact
-          </button>
+          {/* Bottom Section */}
+          <div className="mt-14 text-center bg-white/60 rounded-lg shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-900">
+              Still have questions?
+            </h2>
+
+            <button className="mt-6 px-6 py-3 bg-zinc-700 hover:bg-zinc-800 text-white rounded-lg font-medium transition-all duration-300">
+              You're stupid, don't contact
+            </button>
+          </div>
         </div>
       </div>
     </div>
