@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Navbar from "../components/Navbar";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { motion } from "motion/react";
@@ -58,9 +57,6 @@ const Hero = () => {
 
       <div className="relative z-10">
         <Toaster position="top-center" reverseOrder={false} />
-
-        <Navbar />
-
         <div className="flex flex-col justify-center items-center mt-20 px-4">
           <div className="flex flex-col items-center gap-5">
             <div className="flex flex-col items-center">
