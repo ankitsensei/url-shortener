@@ -49,7 +49,7 @@ const Hero = () => {
         <Silk
           speed={5}
           scale={1}
-          color="#ffffff"
+          color="#484848"
           noiseIntensity={1.5}
           rotation={0}
         />
@@ -84,19 +84,19 @@ const Hero = () => {
 
             <div className="flex items-center">
               <div className="border border-r-0 border-white/30 backdrop-blur-md bg-white/40 w-80 lg:w-[440px] rounded-lg rounded-r-none flex items-center px-2">
-                <IoLinkSharp className="text-zinc-500 rotate-135 text-2xl" />
+                <IoLinkSharp className="text-zinc-300 rotate-135 text-2xl" />
 
                 <input
                   type="text"
                   placeholder="https://github.com/ankitsensei"
                   {...register("newUrl", { required: true })}
-                  className="py-3 px-2 w-full bg-transparent outline-none placeholder:text-zinc-500"
+                  className="py-3 px-2 w-full bg-transparent outline-none placeholder:text-zinc-400 text-zinc-300"
                 />
               </div>
 
               <button
                 type="submit"
-                className="px-5 py-3 bg-zinc-500 hover:bg-zinc-600 transition text-white border border-zinc-400 rounded-lg rounded-l-none"
+                className="px-5 py-3 bg-zinc-500 hover:bg-zinc-600 transition text-zinc-300 border border-zinc-400 rounded-lg rounded-l-none"
               >
                 Shorten
               </button>
@@ -114,7 +114,7 @@ const Hero = () => {
               <input
                 type="text"
                 readOnly
-                className="w-full bg-transparent outline-none"
+                className="w-full bg-transparent outline-none text-zinc-300"
                 value={`http://localhost:5555/${generatedNewUrl}`}
               />
 
@@ -122,7 +122,7 @@ const Hero = () => {
                 whileHover={{ scale: 1.15 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleCopy}
-                className="px-2 text-lg"
+                className="px-2 text-lg text-zinc-300"
               >
                 <FaRegCopy />
               </motion.button>
