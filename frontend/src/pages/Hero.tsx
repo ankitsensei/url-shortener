@@ -57,7 +57,7 @@ const Hero = () => {
 
       <div className="relative z-10">
         <Toaster position="top-center" reverseOrder={false} />
-        <div className="flex flex-col justify-center items-center mt-20 px-4">
+        <div className="flex flex-col justify-center items-center mt-20 px-2">
           <div className="flex flex-col items-center gap-5">
             <div className="flex flex-col items-center">
               <p className="font-bold text-4xl md:text-5xl text-white">
@@ -69,7 +69,7 @@ const Hero = () => {
               </p>
             </div>
 
-            <p className="text-zinc-400 text-center text-sm lg:text-md">
+            <p className="text-zinc-400 text-center text-[12px] md:text-md">
               Take full control. Create short, branded links and QR codes you
               <br />
               can edit anytime to keep your campaigns fresh and effective.
@@ -78,12 +78,14 @@ const Hero = () => {
 
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="mt-10 flex flex-col gap-2"
+            className="mt-10 flex flex-col gap-2 w-full md:w-120 lg:w-auto"
           >
-            <label className="text-white font-medium">Enter your URL</label>
+            <label className="text-white font-medium text-[12px] md:text-sm">
+              Enter your URL
+            </label>
 
-            <div className="flex items-center">
-              <div className="border border-r-0 border-white/30 backdrop-blur-md bg-white/40 w-80 lg:w-[440px] rounded-lg rounded-r-none flex items-center px-2">
+            <div className="flex items-center justify-center w-full">
+              <div className="border border-r-0 border-white/30 backdrop-blur-md bg-white/40 w-full lg:w-[440px] rounded-lg rounded-r-none flex items-center px-2">
                 <IoLinkSharp className="text-zinc-300 rotate-135 text-2xl" />
 
                 <input
@@ -110,11 +112,11 @@ const Hero = () => {
           </form>
 
           {generatedNewUrl && (
-            <div className="mt-5 flex justify-between items-center w-80 lg:w-[540px] border border-white/30 bg-white/40 backdrop-blur-md px-3 py-3 rounded-md">
+            <div className="mt-5 flex justify-between items-center w-full md:w-120 lg:w-135 border border-white/30 bg-white/40 backdrop-blur-md px-3 py-3 rounded-md">
               <input
                 type="text"
                 readOnly
-                className="w-full bg-transparent outline-none text-zinc-300"
+                className="bg-transparent outline-none text-zinc-300 w-full md:w-120 lg:w-full"
                 value={`http://localhost:5555/${generatedNewUrl}`}
               />
 
