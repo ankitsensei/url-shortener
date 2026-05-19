@@ -6,6 +6,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaRegCopy } from "react-icons/fa";
 import { IoLinkSharp } from "react-icons/io5";
 import Silk from "../component/Silk";
+import { QRCode } from "react-qr-code";
 
 interface IFormInput {
   newUrl: string;
@@ -112,22 +113,34 @@ const Hero = () => {
           </form>
 
           {generatedNewUrl && (
-            <div className="mt-5 flex justify-between items-center w-full md:w-120 lg:w-135 border border-white/30 bg-white/40 backdrop-blur-md px-3 py-3 rounded-md">
-              <input
-                type="text"
-                readOnly
-                className="bg-transparent outline-none text-zinc-300 w-full md:w-120 lg:w-full"
-                value={`http://localhost:5555/${generatedNewUrl}`}
-              />
+            <div className="mt-5 w-full md:w-120 lg:w-135 border border-white/30 backdrop-blur-md px-3 py-3 rounded-md">
+              <div className="flex justify-between items-center w-full md:w-120 lg:w-full border border-white/30 bg-white/40 backdrop-blur-md px-3 py-3 rounded-md">
+                <input
+                  type="text"
+                  readOnly
+                  className="bg-transparent outline-none text-zinc-300 w-full md:w-120 lg:w-full"
+                  value={`http://localhost:5555/${generatedNewUrl}`}
+                />
 
-              <motion.button
-                whileHover={{ scale: 1.15 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleCopy}
-                className="px-2 text-lg text-zinc-300"
-              >
-                <FaRegCopy />
-              </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.15 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleCopy}
+                  className="px-2 text-lg text-zinc-300"
+                >
+                  <FaRegCopy />
+                </motion.button>
+              </div>
+              <div className="flex mt-2">
+                <div className="bg-white p-4 rounded-xl w-58">
+                  <QRCode
+                    size={256}
+                    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                    value={`http://localhost:5555/${generatedNewUrl}`}
+                    viewBox="0 0 256 256"
+                  />
+                </div>
+              </div>
             </div>
           )}
         </div>
