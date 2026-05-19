@@ -14,6 +14,7 @@ interface IFormInput {
 
 const Hero = () => {
   const [generatedNewUrl, setGeneratedNewUrl] = useState<string>();
+  const baseUrl = "http://localhost:5555/";
   const {
     register,
     handleSubmit,
@@ -22,7 +23,7 @@ const Hero = () => {
 
   const onSubmit = async (data: IFormInput) => {
     try {
-      const response = await axios.post("http://localhost:5555/url", {
+      const response = await axios.post(`${baseUrl}url`, {
         url: data.newUrl,
       });
       setGeneratedNewUrl(response.data.id);
@@ -33,9 +34,7 @@ const Hero = () => {
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(
-        `http://localhost:5555/${generatedNewUrl}`,
-      );
+      await navigator.clipboard.writeText(`${baseUrl}${generatedNewUrl}`);
       toast.success("Copied url");
     } catch (err) {
       toast.error("Couldn't copy");
@@ -86,7 +85,7 @@ const Hero = () => {
             </label>
 
             <div className="flex items-center justify-center w-full">
-              <div className="border border-r-0 border-white/30 backdrop-blur-md bg-white/40 w-full lg:w-[440px] rounded-lg rounded-r-none flex items-center px-2">
+              <div className="border border-r-0 border-white/30 backdrop-blur-md bg-white/40 w-full lg:w-110 rounded-lg rounded-r-none flex items-center px-2">
                 <IoLinkSharp className="text-zinc-300 rotate-135 text-2xl" />
 
                 <input
@@ -119,7 +118,7 @@ const Hero = () => {
                   type="text"
                   readOnly
                   className="bg-transparent outline-none text-zinc-300 w-full md:w-120 lg:w-full"
-                  value={`http://localhost:5555/${generatedNewUrl}`}
+                  value={`${baseUrl}${generatedNewUrl}`}
                 />
 
                 <motion.button
@@ -136,7 +135,7 @@ const Hero = () => {
                   <QRCode
                     size={256}
                     style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                    value={`http://localhost:5555/${generatedNewUrl}`}
+                    value={`${baseUrl}${generatedNewUrl}`}
                     viewBox="0 0 256 256"
                   />
                 </div>
