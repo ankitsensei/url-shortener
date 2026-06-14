@@ -2,7 +2,7 @@
 
 A modern URL Shortener web application built with React, TypeScript, Node.js, and MongoDB. Users can generate short URLs instantly, copy them with a single click, and scan QR codes for quick access.
 
-![Project Preview](./preview.png)
+![alt text](frontend/public/UrlShortener.jpg)
 
 ---
 
@@ -122,11 +122,6 @@ GET /:shortId
 ```
 
 Redirects the user to the original URL.
-
----
-
-## 📱 Screenshots
-![alt text](frontend/public/UrlShortener.jpg)
 
 ---
 
