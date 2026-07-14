@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unknown-property */
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { forwardRef, useRef, useMemo, useLayoutEffect } from 'react';
-import { Color } from 'three';
+import { useRef, useMemo, useLayoutEffect } from 'react';
+import { Color, type Mesh, type ShaderMaterial } from 'three';
 
-const hexToNormalizedRGB = hex => {
+const hexToNormalizedRGB = (hex: string): [number, number, number] => {
   hex = hex.replace('#', '');
   return [
     parseInt(hex.slice(0, 2), 16) / 255,
@@ -69,33 +69,52 @@ void main() {
 }
 `;
 
-const SilkPlane = forwardRef(function SilkPlane({ uniforms }, ref) {
+interface SilkUniforms {
+  [key: string]: { value: unknown };
+  uSpeed: { value: number };
+  uScale: { value: number };
+  uNoiseIntensity: { value: number };
+  uColor: { value: Color };
+  uRotation: { value: number };
+  uTime: { value: number };
+}
+
+const SilkPlane = ({ uniforms }: { uniforms: SilkUniforms }) => {
+  const meshRef = useRef<Mesh>(null);
   const { viewport } = useThree();
 
   useLayoutEffect(() => {
-    if (ref.current) {
-      ref.current.scale.set(viewport.width, viewport.height, 1);
+    if (meshRef.current) {
+      meshRef.current.scale.set(viewport.width, viewport.height, 1);
     }
-  }, [ref, viewport]);
+  }, [viewport]);
 
   useFrame((_, delta) => {
-    ref.current.material.uniforms.uTime.value += 0.1 * delta;
+    const material = meshRef.current?.material as ShaderMaterial | undefined;
+    if (material) {
+      material.uniforms.uTime.value += 0.1 * delta;
+    }
   });
 
   return (
-    <mesh ref={ref}>
+    <mesh ref={meshRef}>
       <planeGeometry args={[1, 1, 1, 1]} />
       <shaderMaterial uniforms={uniforms} vertexShader={vertexShader} fragmentShader={fragmentShader} />
     </mesh>
   );
-});
-SilkPlane.displayName = 'SilkPlane';
+};
 
-const Silk = ({ speed = 5, scale = 1, color = '#7B7481', noiseIntensity = 1.5, rotation = 0 }) => {
-  const meshRef = useRef();
+interface SilkProps {
+  speed?: number;
+  scale?: number;
+  color?: string;
+  noiseIntensity?: number;
+  rotation?: number;
+}
 
+const Silk = ({ speed = 5, scale = 1, color = '#7B7481', noiseIntensity = 1.5, rotation = 0 }: SilkProps) => {
   const uniforms = useMemo(
-    () => ({
+    (): SilkUniforms => ({
       uSpeed: { value: speed },
       uScale: { value: scale },
       uNoiseIntensity: { value: noiseIntensity },
@@ -108,7 +127,7 @@ const Silk = ({ speed = 5, scale = 1, color = '#7B7481', noiseIntensity = 1.5, r
 
   return (
     <Canvas dpr={[1, 2]} frameloop="always">
-      <SilkPlane ref={meshRef} uniforms={uniforms} />
+      <SilkPlane uniforms={uniforms} />
     </Canvas>
   );
 };
