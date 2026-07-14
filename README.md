@@ -1,131 +1,147 @@
-# 🔗 URL Shortener
+# URL Shortener
 
-A modern URL Shortener web application built with React, TypeScript, Node.js, and MongoDB. Users can generate short URLs instantly, copy them with a single click, and scan QR codes for quick access.
+An URL shortener with a modern, animated UI. Paste any long URL, get a short link and QR code instantly. Built with React, TypeScript, Express, and MongoDB.
 
-![alt text](frontend/public/UrlShortener.jpg)
+![Screenshot](frontend/public/UrlShortener.jpg)
 
----
+## Features
 
-## ✨ Features
+- **URL Shortening** -- Paste any URL and generate a unique short link
+- **QR Code Generation** -- Every shortened URL gets a scannable QR code
+- **Copy to Clipboard** -- One-click copy with toast notification feedback
+- **URL Redirect** -- Visiting a short URL redirects to the original destination
+- **Click Analytics** -- Track total clicks and visit history per short URL
+- **Animated Background** -- Custom WebGL silk shader animation via Three.js
+- **Responsive Design** -- Works on mobile, tablet, and desktop
 
-- Shorten long URLs instantly
-- Generate unique short links
-- QR Code generation for every shortened URL
-- One-click copy to clipboard
-- Toast notifications
-- Responsive modern UI
-- Redirect users from short URL to original URL
+## Tech Stack
 
----
+| Layer | Technology |
+|---|---|
+| Frontend | React 19, TypeScript, Tailwind CSS v4, Vite 8 |
+| Forms | react-hook-form |
+| HTTP Client | Axios |
+| Animations | Motion (Framer Motion) |
+| Notifications | react-hot-toast |
+| QR Codes | react-qr-code |
+| 3D Graphics | Three.js, React Three Fiber |
+| Backend | Node.js, Express 5 |
+| Database | MongoDB, Mongoose |
+| ID Generation | shortid |
 
-## 🛠️ Tech Stack
 
-### Frontend
-- React
-- TypeScript
-- Tailwind CSS
-- Axios
-- React Toastify
-- React Icons
+## Installation
 
-### Backend
-- Node.js
-- Express.js
-- NanoID
-
----
-
-## ⚙️ Installation
-
-### 1. Clone Repository
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/url-shortener.git
-
+git clone https://github.com/ankitsensei/url-shortener.git
 cd url-shortener
 ```
 
-### 2. Install Dependencies
-
-#### Frontend
+### 2. Install backend dependencies
 
 ```bash
-cd client
+cd backend
 npm install
 ```
 
-#### Backend
+### 3. Create environment file
+
+Create a `.env` file in the `backend/` directory:
 
 ```bash
-cd server
+echo "PORT=5555" > backend/.env
+```
+
+### 4. Install frontend dependencies
+
+```bash
+cd ../frontend
 npm install
 ```
 
----
+## Running the Application
 
-## ▶️ Run Application
+Start both servers in separate terminals:
 
-### Start Backend
+### Backend
 
 ```bash
-cd server
+cd backend
 npm run dev
 ```
 
-### Start Frontend
+### Frontend
 
 ```bash
-cd client
+cd frontend
 npm run dev
 ```
 
-Application will be available at:
+| Service | URL |
+|---|---|
+| Frontend | http://localhost:5173 |
+| Backend | http://localhost:5555 |
 
-```text
-Frontend: http://localhost:5174
-
-Backend: http://localhost:5555
-```
-
----
-
-## 🚀 API Endpoints
+## API Endpoints
 
 ### Create Short URL
 
-```http
-POST /api/shorten
+```
+POST /url
 ```
 
-Request Body:
+**Request:**
 
 ```json
 {
-  "url": "https://example.com"
+  "url": "https://example.com/very/long/url"
 }
 ```
 
-Response:
+**Response:**
 
 ```json
 {
-  "shortUrl": "http://localhost:5555/abc123"
+  "id": "abc123"
 }
 ```
 
----
+### Redirect
 
-### Redirect URL
-
-```http
+```
 GET /:shortId
 ```
 
-Redirects the user to the original URL.
 
----
+## Project Structure
 
-## 👨‍💻 Author
+```
+url-shortener/
+├── backend/
+│   ├── index.js              # Express server entry point
+│   ├── connect.js            # MongoDB connection
+│   ├── controllers/
+│   │   └── url.js            # URL creation & analytics handlers
+│   ├── models/
+│   │   └── url.js            # Mongoose schema
+│   └── routes/
+│       └── url.js            # Route definitions
+└── frontend/
+    ├── src/
+    │   ├── App.tsx            # Router setup
+    │   ├── main.tsx           # Entry point
+    │   ├── pages/
+    │   │   └── Hero.tsx       # Main UI page
+    │   ├── component/
+    │   │   └── Silk.tsx       # WebGL shader background
+    │   └── index.css          # Tailwind imports
+    └── public/
+        └── UrlShortener.jpg
+```
+
+## Author
 
 Ankit Bhagat
 
